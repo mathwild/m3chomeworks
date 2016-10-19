@@ -17,7 +17,7 @@ print "CID:", Output[y]
 print "ID2:", ID2
 
 #4. Add python code here which removes all zeros from your CID and stores the result in
-#   the variable, ID3. For example, "10000001" would become "11"
+#   the string, ID3. For example, "10000001" would become "11"
 
 print "ID3:", ID3
 
