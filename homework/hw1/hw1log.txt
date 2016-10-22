@@ -1,0 +1,72 @@
+commit 0a947542d88d032a3b8c17860775f2852af22af4
+Author: Mathilde Duverger <mathildeduverger@dyn1195-94.wlan.ic.ac.uk>
+Date:   Fri Oct 21 18:14:02 2016 +0100
+
+    Finished coursework
+
+commit 29811aeddcc6a696004f37a9a93e4b1f775b68ab
+Author: Mathilde Duverger <mathildeduverger@mathildes-air.home>
+Date:   Thu Oct 20 21:55:29 2016 +0100
+
+    Finished coursework
+
+commit 9192d0cf0f68892d81f529cc76701d97177c31a8
+Merge: 29e622f de3e179
+Author: Mathilde Duverger <md2914@ic.ac.uk>
+Date:   Wed Oct 19 13:30:28 2016 +0100
+
+    Merged ImperialHPSC/m3c2016 into master
+
+commit de3e179c4a9c628c30ff6d436ed18669e77e7921
+Author: prasun <prasun@ma-pray1.ma.ic.ac.uk>
+Date:   Wed Oct 19 11:35:17 2016 +0100
+
+    modified hw1.py file
+
+commit 3b90bf57f0694d8c29b3597cd2c0995a651dd43c
+Author: prasun <prasun@ma-pray1.ma.ic.ac.uk>
+Date:   Wed Oct 19 11:16:13 2016 +0100
+
+    adding homework 1
+
+commit 29e622fd6d4c6199b6490fe022d9a6b199b2230e
+Author: Mathilde Duverger <mathildeduverger@dyn1196-131.wlan.ic.ac.uk>
+Date:   Tue Oct 18 17:22:10 2016 +0100
+
+    added Villani
+
+commit 56d03f680ec993028cfbd000ec55ffdf7dc0d3fd
+Author: Prasun Ray <p.ray@imperial.ac.uk>
+Date:   Mon Oct 17 00:13:01 2016 +0100
+
+    adding lecture 3 slides
+
+commit 7aed3a184635ecf93e54b6a33cb4fafb803edafb
+Author: Prasun Ray <p.ray@imperial.ac.uk>
+Date:   Sun Oct 16 12:37:01 2016 +0100
+
+    adding labs directory
+
+commit 3be68cb63fab4a68fa8ad116bfdb28c8047398c3
+Author: Prasun Ray <p.ray@imperial.ac.uk>
+Date:   Thu Oct 13 00:10:39 2016 +0100
+
+    adding lecture 2 slides
+
+commit 4e93353e688087fcaac0c6d34ff4624be3d01f85
+Author: Prasun Ray <p.ray@imperial.ac.uk>
+Date:   Mon Oct 10 23:00:34 2016 +0100
+
+    adding Unix notes
+
+commit 585e9e0f4a2549b76f20c15812900683c21e9d7c
+Author: Prasun Ray <p.ray@imperial.ac.uk>
+Date:   Thu Oct 6 01:09:33 2016 +0100
+
+    adding lecture 1 slides
+
+commit 3b19ea89b21ec58c145062ae543ff018fd54b109
+Author: prasun <prasun@ma-pray1.ma.ic.ac.uk>
+Date:   Wed Oct 5 14:58:38 2016 +0100
+
+    initial commit
