@@ -2,8 +2,9 @@
 !Compute the integral of 4/(1+x^2) from 0 to 1 using the midpoint or trapezoid rule
 !Input: number of intervals, N
 !Output (to screen): number of intervals, estimated value of integral, and error
-!To compile this code: gfortran -o quad.exe quad.f90
-!To run: ./quad.exe
+!To compile this code: gfortran -o quad1.exe quad1.f90
+!To run: ./quad1.exe
+!To generate python module: f2py -c quad1.f90 -m q
 !which generates q.so
 
 program quad
@@ -36,17 +37,16 @@ program quad
     !Write x,f(x) to file 
     
     do i1=1,N+1
-        x(i1) = dble(i1-1)/dble(N)
+!uncomment for Task 4      x(i1) = dble(i1-1)/dble(N)
     end do
     
     !add code to compute f here
     
     open(unit=11,file='integrand.dat')
     do i1 = 1,N+1
-        write(11,*) x(i1),f(i1)
+!uncomment for Task 4        write(11,*) x(i1),f(i1)
     end do
     close(11)
-    deallocate(x,f)
     ! To load in python:
     ! F = np.loadtxt("integrand.dat")
     
@@ -90,7 +90,8 @@ end subroutine midpoint
 !----------------------------------
 subroutine trapezoid(N,I)
     implicit none
-
+    integer :: N
+    real(kind=8) :: I
     !Lab 5: add code here
 
 
