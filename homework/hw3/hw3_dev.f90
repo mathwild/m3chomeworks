@@ -2,7 +2,9 @@
 module network
     implicit none
     integer, dimension(:), allocatable :: qnet
-    integer, dimension(:,:), allocatable :: anet,enet  
+    integer, dimension(:,:), allocatable :: anet,enet 
+    save 
+    contains 
 
 subroutine generate(N0,L,Nt,qmax)
 	!Generate recursive matrix corresponding
@@ -48,7 +50,7 @@ subroutine generate(N0,L,Nt,qmax)
             !that node
             do i =1,L
                 do j = 1,size(P)
-                    if (L1(i)<P(j)) then
+                    if (L1(i)<=P(j)) then
                         L1(i) = j
                         exit  
                     end if
@@ -78,7 +80,9 @@ end subroutine generate
 subroutine adjacency_matrix()
 	!Create adjacency matrix corresponding 
 	!to pre-existing edge list 
-	allocate( anet(N0+Nt,N0+Nt) )
+	implicit none
+	integer :: i
+	allocate( anet(size(qnet),size(qnet)) )
         do i =1,size(enet)/2
             anet(enet(1,i),enet(2,i))=1
             anet(enet(2,i),enet(1,i))=1
@@ -87,12 +91,21 @@ subroutine adjacency_matrix()
 
 end subroutine adjacency_matrix
 
-!subroutine connectivity(c)
-!	!Compute connectivity of pre-computed network
-!	implicit none
-!	real(kind=8), intent(out) :: c
-!
-!end subroutine connectivity
+subroutine connectivity(c)
+	!Compute connectivity of pre-computed network
+	implicit none
+	real(kind=8), intent(out) :: c
+	integer, dimension(:,:), allocatable :: M,D
+	integer, dimension(2) :: S
+	integer :: i
+        S = shape(anet)
+        allocate( M(S(1),S(2)))
+        allocate( D(S(1),S(2)))
+        do i =1,size(qnet)
+            D(i,i) = qnet(i)
+        end do
+        M = D - anet
+end subroutine connectivity
 
 
 !subroutine vary_connectivity(N0,Lmax,Nt,carray)

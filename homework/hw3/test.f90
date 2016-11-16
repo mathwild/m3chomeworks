@@ -3,9 +3,19 @@ program test
 	integer :: N0,L,Nt
 	!integer, intent(out) :: qmax
 	integer, dimension(:), allocatable :: qnet
-        integer, dimension(:,:), allocatable :: enet,anet
+        integer, dimension(:,:), allocatable :: enet,anet,D
+        real(kind=8), dimension(:,:), allocatable :: M
         real(kind=8), dimension(:), allocatable :: PQ,P,L1
+        integer, dimension(2) :: S
 	integer :: i,j,t,qmax
+	EXTERNAL         DSYEV
+        EXTERNAL         PRINT_MATRIX
+        INTEGER          LWMAX
+        PARAMETER        ( LWMAX = 1000 )
+        INTRINSIC        INT, MIN
+        INTEGER          INFO, LWORK
+        DOUBLE PRECISION WORK( LWMAX )
+        double precision, dimension(:), allocatable :: W
 	!initialise model
 	N0 = 5
 	L = 2
@@ -38,7 +48,7 @@ program test
             call random_number(L1)
             do i =1,L
                 do j = 1,size(P)
-                    if (L1(i)<P(j)) then
+                    if (L1(i)<=P(j)) then
                         L1(i) = j
                         exit  
                     end if
@@ -67,5 +77,20 @@ program test
             anet(enet(1,i),enet(2,i))=1
             anet(enet(2,i),enet(1,i))=1
         end do
-        print *, anet
+        
+        !connectivity 
+        S = shape(anet)
+        allocate( M(S(1),S(2)))
+        allocate( D(S(1),S(2)))
+        allocate( W(S(1)) )
+        do i =1,size(qnet)
+            D(i,i) = qnet(i)
+        end do
+        M = D - anet
+        
+        LWORK = -1
+        CALL DSYEV( 'N', 'Upper', S(1), M, S(1), W, WORK, LWORK, INFO )
+        LWORK = MIN( LWMAX, INT( WORK( 1 ) ) )
+
+        CALL DSYEV( 'N', 'Upper', S(1), M, S(1), W, WORK, LWORK, INFO )
 end program test
