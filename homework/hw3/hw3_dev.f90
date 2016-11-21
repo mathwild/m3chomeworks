@@ -1,4 +1,4 @@
-!Template code for Homework 3
+!Code for M3C 2016 Homework 3 Mathilde Duverger CID:00978498
 module network
     implicit none
     integer, dimension(:), allocatable :: qnet
@@ -14,7 +14,7 @@ subroutine generate(N0,L,Nt,qmax)
 	integer, intent(out) :: qmax
         real(kind=8), dimension(:), allocatable :: PQ,P,L1
 	integer :: i,j,t
-	!initialise model
+	!initialise model with N0 nodes 
 	allocate ( qnet(N0+Nt) )
 	allocate( enet(2,N0+Nt*L) ) 
 	do i = 1,N0-1
@@ -97,24 +97,60 @@ subroutine connectivity(c)
 	real(kind=8), intent(out) :: c
 	integer, dimension(:,:), allocatable :: M,D
 	integer, dimension(2) :: S
-	integer :: i
+	integer :: i,LWORK,INFO
+	external :: DSYEV
+        intrinsic :: INT, MIN
+        double precision, dimension(:,:),allocatable :: Mtemp
+        double precision, dimension(:),allocatable :: WORK
+        double precision, dimension(:), allocatable :: W
         S = shape(anet)
         allocate( M(S(1),S(2)))
         allocate( D(S(1),S(2)))
+        !compute M the Laplacian matrix
         do i =1,size(qnet)
             D(i,i) = qnet(i)
         end do
         M = D - anet
+        
+        !run DSYEV
+        allocate( Mtemp(S(1),S(2)))
+        Mtemp = dble(M)
+        allocate( WORK(1) )
+        allocate( W(S(1)) )
+        !query the optimal workspace
+        LWORK = -1
+        CALL DSYEV( 'N', 'Upper', S(1), Mtemp, S(1), W, WORK, LWORK, INFO )
+        LWORK = WORK(1)
+        deallocate( WORK )
+        !solve eigenproblem 
+        allocate( WORK(MAX(1,LWORK)) )
+        CALL DSYEV( 'N', 'Upper', S(1), Mtemp, S(1), W, WORK, LWORK, INFO )
+        !W is the array of eigenvalues in ascending order, 
+        !c is the second smallest eigenvalue
+        c = W(2)
 end subroutine connectivity
 
 
-!subroutine vary_connectivity(N0,Lmax,Nt,carray)
-!	!Compute connectivity for networks with L varying
-!	!between 1 and Lmax
-!	implicit none
-!	integer, intent(in) :: N0,Lmax,Nt
-!	real(kind=8), dimension(Lmax),intent(out) :: carray
+subroutine vary_connectivity(N0,Lmax,Nt,carray)
+	!Compute connectivity for networks with L varying
+	!between 1 and Lmax
+	!As the number of links added L increases in every loop
+	!the connectivity decreases. There is a linear correspondence 
+	!between L and c.
+	implicit none
+	integer, intent(in) :: N0,Lmax,Nt
+	real(kind=8), dimension(Lmax),intent(out) :: carray
+	integer :: L,qmax
+	real(kind=8) :: c
+        do L =1,Lmax
+            call generate(N0,L,Nt,qmax)
+            call adjacency_matrix() 
+            call connectivity(c)
+            carray(L) = c
+            deallocate( qnet )
+            deallocate( enet )
+            deallocate( anet )
+        end do
+end subroutine vary_connectivity
 
-
-!end subroutine vary_connectivity()
 end module network
