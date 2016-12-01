@@ -1,5 +1,6 @@
-"""template code for hw4
+"""Code for M3C 2016 Homework 4 Mathilde Duverger CID:00978498
 """
+
 import numpy as np
 import matplotlib.pyplot as plt
 from ns import netstats as ns #assumes netstats module has been compiled as ns.so with f2py

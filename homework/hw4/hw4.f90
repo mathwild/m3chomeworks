@@ -1,7 +1,6 @@
-!Template code for hw4
+!Code for M3C 2016 Homework 4 Mathilde Duverger CID:00978498
 !Should be compiled with network.f90
-!f2py -llapack -c hw4_dev2.f90 network.f90 --f90flags='-fopenmp' -lgomp -m ns
-!f2py -llapack -c hw4_dev2.f90 network.f90 -m ns
+
 module netstats
 	use network
 	use omp_lib
